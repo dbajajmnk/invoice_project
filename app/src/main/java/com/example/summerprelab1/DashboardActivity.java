@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.summerprelab1.data.DataHandler;
 import com.example.summerprelab1.data.Invoice;
 import com.example.summerprelab1.data.Item;
 import com.example.summerprelab1.util.Util;
@@ -93,6 +94,10 @@ public class DashboardActivity extends AppCompatActivity {
         InvoiceAdapter invoiceAdapter = new InvoiceAdapter(InvoiceItemList);
         invoiceItems.setAdapter(invoiceAdapter);
         invoice_total.setText(String.valueOf(invoice.getTotalValue()));
+        String invoiceJson = DataHandler.convertInvoiceToString(invoice);
+        Log.d("Invoice Json",invoiceJson);
+        Invoice newInvoice = DataHandler.convertStringToInvoice(invoiceJson);
+        Log.d("New Invoice",DataHandler.convertInvoiceToString(invoice));
         total_items.setText(String.valueOf(invoice.getQunantity()));
 
     }
