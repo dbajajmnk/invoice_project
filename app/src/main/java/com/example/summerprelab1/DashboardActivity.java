@@ -1,24 +1,16 @@
 package com.example.summerprelab1;
 
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.summerprelab1.data.DataHandler;
 import com.example.summerprelab1.data.Invoice;
 import com.example.summerprelab1.data.Item;
@@ -29,11 +21,10 @@ import java.util.List;
 import java.util.Random;
 
 
-
 public class DashboardActivity extends AppCompatActivity {
 
     private static final int READ_SMS_PERMISSION_CODE = 1;
-    TextView buyerName, issuerName, buyerAddress, buyerId, invoiceId,invoice_total,total_items;
+    TextView buyerName, issuerName, buyerAddress, buyerId, invoiceId, invoice_total, total_items;
     RecyclerView invoiceItems;
     CheckBox isPaid;
 
@@ -48,14 +39,14 @@ public class DashboardActivity extends AppCompatActivity {
                     new String[]{android.Manifest.permission.READ_SMS}, READ_SMS_PERMISSION_CODE);
         }
 
-        String smsInput="invoice:IssuerName;BuyerName;BuyerAddress;IsPaid\n" +
+        String smsInput = "invoice:IssuerName;BuyerName;BuyerAddress;IsPaid\n" +
                 "invoice:Alex;Tom;Melbourne;TRUE";
-       Invoice invoice = Util.readSMSForInvoice(smsInput);
-       Log.d("invoice: ", invoice.toString());
+        Invoice invoice = Util.readSMSForInvoice(smsInput);
+        Log.d("invoice: ", invoice.toString());
 
         // Generate and set the InvoiceId
         String iId = generateInvoiceId();
-        invoiceId=findViewById(R.id.txt_label_invoice_id); // Replace with actual TextView ID
+        invoiceId = findViewById(R.id.txt_label_invoice_id); // Replace with actual TextView ID
         invoiceId.setText("InvoiceId: " + iId);
 
         // get buyer name
@@ -85,19 +76,19 @@ public class DashboardActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         invoiceItems.setLayoutManager(layoutManager);
 
-        List<Item> InvoiceItemList= new ArrayList<>();
-        InvoiceItemList.add(new Item("1","Shirt",10f,10));
-        InvoiceItemList.add(new Item("1","Shirt",10f,10));
-        InvoiceItemList.add(new Item("1","Shirt",10f,10));
+        List<Item> InvoiceItemList = new ArrayList<>();
+        InvoiceItemList.add(new Item("1", "Shirt", 10f, 10));
+        InvoiceItemList.add(new Item("1", "Shirt", 10f, 10));
+        InvoiceItemList.add(new Item("1", "Shirt", 10f, 10));
         invoice.setItems(InvoiceItemList);
 
         InvoiceAdapter invoiceAdapter = new InvoiceAdapter(InvoiceItemList);
         invoiceItems.setAdapter(invoiceAdapter);
         invoice_total.setText(String.valueOf(invoice.getTotalValue()));
         String invoiceJson = DataHandler.convertInvoiceToString(invoice);
-        Log.d("Invoice Json",invoiceJson);
+        Log.d("Invoice Json", invoiceJson);
         Invoice newInvoice = DataHandler.convertStringToInvoice(invoiceJson);
-        Log.d("New Invoice",DataHandler.convertInvoiceToString(invoice));
+        Log.d("New Invoice", DataHandler.convertInvoiceToString(invoice));
         total_items.setText(String.valueOf(invoice.getQunantity()));
 
     }
@@ -158,7 +149,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         return buyerId;
     }
-
 
 
 }

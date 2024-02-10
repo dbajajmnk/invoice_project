@@ -8,7 +8,7 @@ import com.google.gson.Gson;
  */
 
 public class DataHandler {
-         private static  Gson gson = new Gson();
+         private static final Gson gson = new Gson();
 
     /**
      * Convert Invoice object to string
